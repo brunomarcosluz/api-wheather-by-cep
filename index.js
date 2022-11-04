@@ -1,25 +1,21 @@
 const express = require('express'); // inicializando o package Express.js
 const req = require('express/lib/request');
 const res = require('express/lib/response');
-const server = express();
+const server_bruno = express();
+const axios = require('axios').default;
+/*
+server_bruno.listen(3000, () => {
+  console.log('Servidor na ativa')
+}); */
 
-server.get('/testeapi', (req, res) => {
-  return res.json({usuario: 'Bruno Marcos Luz'})
-});
+// https://viacep.com.br/ 
+// viacep.com.br/ws/13060758/json/ Exemplo de pesquisa por CEP
+// https://apiprevmet3.inmet.gov.br/estacao/proxima/<geocode> | geocode = igbe
+ 
+// teste de leitura no console  | após instalaçao do package prompt-sync
+const prompt = require('prompt-sync')({sigint:true}); // inicializando pacote prompt-sync
+var cep = prompt('Informe seu CEP: ')
+const url_cep = 'viacep.com.br/ws/' + cep + '/json/';
 
-server.listen(3000)
 
-// teste de leitura no console 
-
-var readline = require('readline');
-
-var leitor = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout
-});
-
-leitor.question("Qual o CEP da sua residência?\n", function(answer) {
-    var cep = answer;
-    console.log("\nSua resposta '" + cep + "' foi grava com sucesso numa variável inútil");
-    leitor.close();
-});
+// inmet_url = "https://apiprevmet3.inmet.gov.br/estacao/proxima/" + geocode 
